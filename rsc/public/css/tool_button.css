@@ -1,0 +1,107 @@
+/*.toolbutton {border:0px solid #008800;}
+
+.tool_button:hover {
+	border: 1px #e0a874 solid;
+	border-top-color: #fcd9ba;
+	border-left-color: #fcd9ba;
+	background-color: #FFC;
+}
+.toolbar_button:active {
+	background-color: #F4E284;
+	border-left: 1px solid #663300;
+	border-top: 1px solid #663300;
+}*/
+
+.panel_fill {
+    height: -webkit-calc(100% - 25px);
+    height: -moz-calc(100% - 25px);
+    height: calc(100% - 25px);
+    width: 100%;
+    overflow: auto;
+}
+
+#toolBar {
+    /* position: absolute;
+    z-index: 1000; */
+    height: 25px;
+    /* height:8%; */
+    left: 1px;
+    top: 0px;
+    border-bottom: 0px solid rgba(247, 247, 247, 1);
+}
+
+#toolBar ul {
+    background-color: rgba(240, 240, 240, 1);
+    width: 100%;
+    height: 25px;
+    left: 0px;
+    top: 1px;
+    padding: 0px;
+    margin: 1px;
+    font-size: 9px;
+}
+
+#toolBar li {
+    /* background-color: green; */
+    list-style: none;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    /* text-align: center; */
+    line-height: 25px;
+    /* float: left; */
+}
+
+#toolBar li a {
+    text-decoration: none;
+    display: inline-block;
+    width: 32px;
+    height: 25px;
+    background-color: black;
+}
+
+.tool_button_checkbox {
+    height: 12px;
+    width: 12px;
+    font-size: 16px;
+}
+
+.tool_button {
+    height: 24px;
+    width: 24px;
+    margin: 1px 1px 1px 1px;
+    padding: 1px;
+    -webkit-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0, 0, 0, 0.3);
+    moz-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0, 0, 0, 0.3);
+    background-color: #E8E8E8;
+    cursor: pointer;
+    border: 1px green solid;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    font-size: 16px;
+}
+
+.tool_button:hover {
+    border: 1px #e0a874 solid;
+    border-top-color: #fcd9ba;
+    border-left-color: #fcd9ba;
+    background-color: #FFC;
+    cursor: pointer;
+}
+
+.tool_button:active {
+    background-color: #F4E284;
+    border-left: 1px solid #663300;
+    border-top: 1px solid #663300;
+}
+
+
+/*.tool_button.btnicon {
+	margin: 0 3px -3px 0 !important;
+	padding: 0;
+	border: none;
+	width: 16px;
+	height: 16px;
+}*/

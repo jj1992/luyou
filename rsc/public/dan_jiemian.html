@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>管段单截面示意图</title>
+
+    <link rel="stylesheet" type="text/css" href="css/tool_button.css">
+    <!-- 核心画图组件 -->
+    <script type="text/javascript" src="content/web-graph/core.js"></script>
+    <!-- 功能引用 -->
+ 
+    <script type="text/javascript" src="content/web-graph/controls/contextMenu.js"></script>
+    <script type="text/javascript" src="content/web-graph/controls/toolTip.js"></script>
+    <script type="text/javascript" src="content/web-graph/controls/web-topology.js"></script> 
+    <script type="text/javascript" src="js/Toolbar_Event.js"></script>
+    
+    <script type="text/javascript" src="js/guanduan_jiemian.js"></script> 
+    <script type="text/javascript" src="content/web-graph/danTool.js"></script>
+
+    <style type="text/css">
+        body,
+        html {
+            margin: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%
+        }
+    </style>
+
+    <script>
+        var danParams = {};
+        function danData(djmData){
+            console.log(djmData)
+            // danJieMianData = djmData
+            localStorage.setItem("danJieMianData",JSON.stringify(djmData))
+            danJieMianData = JSON.parse(localStorage.getItem("danJieMianData"));
+            singleDiagram()
+        }
+        danParams.danData = danData
+        loading()
+        function loading(){
+            danJieMianData = {}
+            danJieMianData = JSON.parse(localStorage.getItem("danJieMianData"));
+            console.log(danJieMianData)
+            singleDiagram()
+            localStorage.remove("danJieMianData")
+        }
+        
+        
+     /*   if (parent.onReset && typeof parent.onReset == "function") {
+            parent.onReset(function(context) {
+                danJieMianData = context.cacheData;
+                singleDiagram();
+            });
+        } else if (onReset && typeof onReset == "function") {
+            onReset(function(context) {
+                danJieMianData = context.cacheData;
+                singleDiagram();
+            });
+        }
+*/
+// danJieMianData = {"abfangxiang":"N","abjiaodu":90,"aguanxianId":1099,"ashebeiDaleiId":185,"ashebeiId":141142,"bafangxiang":"S","bajiaodu":270,"bguanxianId":1099,"bshebeiDaleiId":185,"bshebeiId":141143,"cols":6,"dir":"N","duanLeixingId":207,"guanduan":{"abfangxiang":"N","abjiaodu":90.0,"aguanxianId":1099,"ashebeiDaleiId":185,"ashebeiId":141142,"ashebeiMiaoshu":"D局北#1","bafangxiang":"S","bajiaodu":270.0,"bguanxianId":1099,"bshebeiDaleiId":185,"bshebeiId":141143,"bshebeiMiaoshu":"D局北#2","buMen":{"bumenBianhao":"6225","bumenLeixing":"2","bumenMingcheng":"西直门电话局","caozuoShijian":"2018-08-07","caozuoYuan":"test","id":4,"miaoShu":"海淀区红联北村14号","shangjiBumen":{"bumenBianhao":"2","bumenLeixing":"1","bumenMingcheng":"2区局","caozuoShijian":"2005-07-01","caozuoYuan":"auto","id":20007,"miaoShu":"2区局","shangjiBumen":{"bumenLeixing":"0","bumenMingcheng":"北京通信公司","caozuoShijian":"2007-01-25","caozuoYuan":"luweifeng_admin","id":20001,"shifouChanquanDanwei":"0","shifouWeihuDanwei":"0","suoXie":"BJTXGS"},"shifouChanquanDanwei":"0","shifouWeihuDanwei":"0"},"shifouChanquanDanwei":"1","shifouWeihuDanwei":"1"},"caozuoShijian":"2005-07-01","caozuoYuan":"auto","changDu":41.83,"chanquanLeixing":"0","duanLeixingId":207,"guankongZongshu":24,"huaiGuankongShu":0,"huaiZikongShu":0,"id":31129,"juSuo":{"caozuoShijian":"2018-08-07","caozuoYuan":"test","duanjuId":17,"id":4,"jusuoBianma":"6225","jusuoDizhi":"海淀区红联北村14号","jusuoLeibie":"0","jusuoMingcheng":"西直门电话局","quju":{"bumenBianhao":"2","bumenLeixing":"1","bumenMingcheng":"2区局","caozuoShijian":"2005-07-01","caozuoYuan":"auto","id":20007,"miaoShu":"2区局","shangjiBumen":{"bumenLeixing":"0","bumenMingcheng":"北京通信公司","caozuoShijian":"2007-01-25","caozuoYuan":"luweifeng_admin","id":20001,"shifouChanquanDanwei":"0","shifouWeihuDanwei":"0","suoXie":"BJTXGS"},"shifouChanquanDanwei":"0","shifouWeihuDanwei":"0"},"qujuId":20007,"zhuJianzhuWuId":46738},"jusuoId":4,"kongxianGuankong":12,"kongxianZikong":14,"weihuDanwei":4,"zhuangTai":"0","zikongZongshu":27},"holes":[{"ax":15,"ay":3,"bbianhao":"0105","bianhao":"0102","bx":51,"by":3,"cables":[{"duanLeiXingId":207,"id":"23872","lanDuanId":1740,"lanId":1497,"name":"C2-6225-000-038","type":"电缆","weizi":"497938"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497938","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":27,"ay":3,"bbianhao":"0104","bianhao":"0103","bx":39,"by":3,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497939","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":39,"ay":3,"bbianhao":"0103","bianhao":"0104","bx":27,"by":3,"cables":[{"duanLeiXingId":207,"id":"23936","lanDuanId":1745,"lanId":1498,"name":"C2-6225-000-042","type":"电缆","weizi":"497940"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497940","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":51,"ay":3,"bbianhao":"0102","bianhao":"0105","bx":15,"by":3,"cables":[{"duanLeiXingId":207,"id":"23824","lanDuanId":1735,"lanId":1496,"name":"C2-6225-000-036","type":"电缆","weizi":"497941"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497941","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":63,"ay":3,"bbianhao":"0101","bianhao":"0106","bx":3,"by":3,"cables":[{"duanLeiXingId":207,"id":"254900","lanDuanId":1726,"lanId":1494,"name":"C2-6225-000-030","type":"电缆","weizi":"497942"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497942","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":3,"ay":15,"bbianhao":"0206","bianhao":"0201","bx":63,"by":15,"cables":[{"duanLeiXingId":207,"id":"23764","lanDuanId":217038,"lanId":1495,"name":"C2-6225-000-034","type":"电缆","weizi":"497943"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497943","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":15,"ay":15,"bbianhao":"0205","bianhao":"0202","bx":51,"by":15,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497944","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":27,"ay":15,"bbianhao":"0204","bianhao":"0203","bx":39,"by":15,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"id":"6967761","kong_jing":9,"name":"R","shangji_guankong_id":"497945","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"6967762","kong_jing":9,"name":"W","shangji_guankong_id":"497945","shifou_chuzu":"0","state":"空闲","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"5326202","lanDuanId":3237751,"lanId":3186157,"luYou":"F2-6225-BBU-R02","name":"F2-6225-BBU-R01","type":"光缆","weizhi":"6967763"}],"id":"6967763","kong_jing":9,"name":"B","shangji_guankong_id":"497945","shifou_chuzu":"0","state":"占用","type":"子管"}],"id":"497945","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":39,"ay":15,"bbianhao":"0203","bianhao":"0204","bx":27,"by":15,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497946","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":51,"ay":15,"bbianhao":"0202","bianhao":"0205","bx":15,"by":15,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"id":"9509952","kong_jing":9,"name":"R","shangji_guankong_id":"497947","shifou_chuzu":"0","state":"空闲","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"6902343","lanDuanId":3532314,"lanId":3430635,"name":"XF-6225-OM-R07 ","type":"光缆","weizhi":"9509953"}],"id":"9509953","kong_jing":9,"name":"W","shangji_guankong_id":"497947","shifou_chuzu":"0","state":"占用","type":"子管"},{"id":"9509954","kong_jing":9,"name":"B","shangji_guankong_id":"497947","shifou_chuzu":"0","state":"空闲","type":"子管"}],"id":"497947","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":15,"ay":27,"bbianhao":"0305","bianhao":"0302","bx":51,"by":27,"cables":[{"duanLeiXingId":207,"id":"6905039","lanDuanId":3106907,"lanId":3053670,"name":"XC-西直门临S01 ","type":"电缆","weizi":"497948"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497948","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":27,"ay":27,"bbianhao":"0304","bianhao":"0303","bx":39,"by":27,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497949","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":39,"ay":27,"bbianhao":"0303","bianhao":"0304","bx":27,"by":27,"cables":[{"duanLeiXingId":207,"id":"6905093","lanDuanId":3533165,"lanId":3431400,"name":"XF-西直门临001 ","type":"光缆","weizi":"497950"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"cables":[{"duanLeiXingId":207,"id":"6902293","lanDuanId":3532293,"lanId":3430625,"name":"XF-6225-OM-R04 ","type":"光缆","weizhi":"4027344"}],"id":"4027344","kong_jing":9,"name":"R","shangji_guankong_id":"497950","shifou_chuzu":"0","state":"占用","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"397081","lanDuanId":1156,"lanId":1745,"luYou":"西直门局-工商行计算中心","name":"F2-6225-AAA-006","type":"光缆","weizhi":"4027345"}],"id":"4027345","kong_jing":9,"name":"R","shangji_guankong_id":"497950","shifou_chuzu":"0","state":"占用","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"6902458","lanDuanId":3112465,"lanId":3082640,"luYou":"西直门二层传输室-学院派A座B1交接间","name":"F2-6225-AAA-026","type":"光缆","weizhi":"4027346"}],"id":"4027346","kong_jing":9,"name":"W","shangji_guankong_id":"497950","shifou_chuzu":"0","state":"占用","type":"子管"}],"id":"497950","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":63,"ay":27,"bbianhao":"0301","bianhao":"0306","bx":3,"by":27,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497951","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":3,"ay":39,"bbianhao":"0406","bianhao":"0401","bx":63,"by":39,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"id":"2257543","kong_jing":9,"name":"R","shangji_guankong_id":"497952","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"2257544","kong_jing":9,"name":"W","shangji_guankong_id":"497952","shifou_chuzu":"0","state":"空闲","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"430129","lanDuanId":3217,"lanId":2588,"luYou":"西直门局-财经大学","name":"F0-6225-6228-001","type":"光缆","weizhi":"2257545"}],"id":"2257545","kong_jing":9,"name":"B","shangji_guankong_id":"497952","shifou_chuzu":"0","state":"占用","type":"子管"}],"id":"497952","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":39,"ay":39,"bbianhao":"0403","bianhao":"0404","bx":27,"by":39,"cables":[{"duanLeiXingId":207,"id":"6905055","lanDuanId":3533161,"lanId":3431394,"name":"XF-西直门临004 ","type":"光缆","weizi":"497953"},{"duanLeiXingId":207,"id":"6905059","lanDuanId":3533162,"lanId":3431397,"name":"XF-西直门临003 ","type":"光缆","weizi":"497953"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"id":"2354272","kong_jing":9,"name":"R","shangji_guankong_id":"497953","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"2354273","kong_jing":9,"name":"W","shangji_guankong_id":"497953","shifou_chuzu":"0","state":"空闲","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"6905053","lanDuanId":3533159,"lanId":3431393,"name":"XF-西直门临002 ","type":"光缆","weizhi":"2354274"}],"id":"2354274","kong_jing":9,"name":"B","shangji_guankong_id":"497953","shifou_chuzu":"0","state":"占用","type":"子管"}],"id":"497953","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":51,"ay":39,"bbianhao":"0402","bianhao":"0405","bx":15,"by":39,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"cables":[{"duanLeiXingId":207,"id":"3825067","lanDuanId":3016248,"lanId":3013511,"luYou":"北太平庄(6201)局2层-西直门（6225）局2层","name":"F0-6201-6225-004","type":"光缆","weizhi":"2523723"},{"duanLeiXingId":207,"id":"4559296","lanDuanId":3044501,"lanId":3036681,"luYou":"首钢宿舍-总后军需所西直门院联通微站","name":"F2-6225-联通基站-068","type":"光缆","weizhi":"2523723"}],"id":"2523723","kong_jing":9,"name":"R","shangji_guankong_id":"497954","shifou_chuzu":"0","state":"占用","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"485872","lanDuanId":4814,"lanId":7057,"luYou":"西直门局-北邮局","name":"F0-6225-6228A-002","type":"光缆","weizhi":"2523724"}],"id":"2523724","kong_jing":9,"name":"W","shangji_guankong_id":"497954","shifou_chuzu":"0","state":"占用","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"575798","lanDuanId":7852,"lanId":12917,"luYou":"华远小区-华能公司","name":"F2-6225-华远小区-002","type":"光缆","weizhi":"2523725"}],"id":"2523725","kong_jing":9,"name":"B","shangji_guankong_id":"497954","shifou_chuzu":"0","state":"占用","type":"子管"}],"id":"497954","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":63,"ay":39,"bbianhao":"0401","bianhao":"0406","bx":3,"by":39,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"id":"2354275","kong_jing":9,"name":"R","shangji_guankong_id":"497955","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"2354276","kong_jing":9,"name":"W","shangji_guankong_id":"497955","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"2354277","kong_jing":9,"name":"B","shangji_guankong_id":"497955","shifou_chuzu":"0","state":"空闲","type":"子管"}],"id":"497955","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":3,"ay":3,"bbianhao":"0106","bianhao":"0101","bx":63,"by":3,"cables":[{"duanLeiXingId":207,"id":"23609","lanDuanId":1719,"lanId":5296,"name":"C2-6225-000-028","type":"电缆","weizi":"497956"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"497956","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":63,"ay":15,"bbianhao":"0201","bianhao":"0206","bx":3,"by":15,"cables":[{"duanLeiXingId":207,"id":"284850","lanDuanId":1729,"lanId":140,"name":"C2-6225-000-032","type":"电缆","weizi":"556819"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"556819","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":51,"ay":27,"bbianhao":"0302","bianhao":"0305","bx":15,"by":27,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"cables":[{"duanLeiXingId":207,"id":"6086307","lanDuanId":3419156,"lanId":3342033,"luYou":"天方饭店-枫蓝国际","name":"FW-082-2014-管14414","type":"光缆","weizhi":"3181515"}],"id":"3181515","kong_jing":9,"name":"R","shangji_guankong_id":"556820","shifou_chuzu":"0","state":"占用","type":"子管"},{"cables":[{"duanLeiXingId":207,"id":"3086051","lanDuanId":3000872,"lanId":3000676,"luYou":"西直门局-中关村局","name":"F0-6225-6256-001","type":"光缆","weizhi":"3181516"}],"id":"3181516","kong_jing":9,"name":"W","shangji_guankong_id":"556820","shifou_chuzu":"0","state":"占用","type":"子管"},{"id":"3181517","kong_jing":9,"name":"R","shangji_guankong_id":"556820","shifou_chuzu":"0","state":"空闲","type":"子管"}],"id":"556820","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":15,"ay":39,"bbianhao":"0405","bianhao":"0402","bx":51,"by":39,"chanquandanweiId":"无","chanquandanweiMingcheng":"无","childHoles":[{"cables":[{"duanLeiXingId":207,"id":"397173","lanDuanId":1159,"lanId":262,"luYou":"西直门-政法大学-金五星批发城-中鼎大厦-财经学院-交大东路光交接箱-上园饭店-时代之光-金运大厦","name":"F2-6225-AAA-R01","type":"光缆","weizhi":"2167456"}],"id":"2167456","kong_jing":9,"name":"R","shangji_guankong_id":"556821","shifou_chuzu":"0","state":"占用","type":"子管"},{"id":"2167457","kong_jing":9,"name":"W","shangji_guankong_id":"556821","shifou_chuzu":"0","state":"空闲","type":"子管"},{"id":"2167458","kong_jing":9,"name":"B","shangji_guankong_id":"556821","shifou_chuzu":"0","state":"空闲","type":"子管"}],"id":"556821","kong_jing":9,"shifou_chuzu":"0","state":"空闲","type":"管孔"},{"ax":3,"ay":27,"bbianhao":"0306","bianhao":"0301","bx":63,"by":27,"cables":[{"duanLeiXingId":207,"id":"333894","lanDuanId":1744,"lanId":141,"name":"C2-6225-000-040","type":"电缆","weizi":"1411785"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"1411785","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"},{"ax":27,"ay":39,"bbianhao":"0404","bianhao":"0403","bx":39,"by":39,"cables":[{"duanLeiXingId":207,"id":"6905069","lanDuanId":3106916,"lanId":3053671,"name":"XC-西直门临004-A","type":"电缆","weizi":"1411786"}],"chanquandanweiId":"无","chanquandanweiMingcheng":"无","id":"1411786","kong_jing":9,"shifou_chuzu":"0","state":"占用","type":"管孔"}],"id":"31129","name":"D局北#1","rows":4,"type":"管段","xnholes":{"bianhao":"","cables":[{"duanLeiXingId":207,"id":"4558809","lanDuanId":3042769,"lanId":3035107,"luYou":"首钢宿舍交接间-学院南路34号院5号楼联通微站","name":"F2-6225-联通基站-056","type":"光缆","weizi":""},{"duanLeiXingId":207,"id":"4516920","lanDuanId":3073480,"lanId":3058497,"luYou":"北京天方饭店-蓝枫国际公寓","name":"FW-082-ICT3P2-021","type":"光缆","weizi":""},{"duanLeiXingId":207,"id":"5151271","lanDuanId":3206315,"lanId":3160633,"luYou":"（2001）网调字0028号","name":"FW-004-2001-0015","type":"光缆","weizi":""}],"id":"","state":"","type":"虚拟孔"}};
+
+        function singleDiagram() {
+   
+            // //初始状态图片
+            initImagePath();
+            // //批量加载图片
+            loadImages(imagPathList, initDanJieMian);
+            // initDanJieMian();
+        }
+
+        function Initialize() {
+            // document.getElementById('gkBianhao').checked = false;
+            // document.getElementById('zkBianhao').checked = false;
+            // document.getElementById('glBianhao').checked = false;
+            // document.getElementById('dlBianhao').checked = false;
+            initDanJieMian();
+        }
+        //重新加载的数据回调函数
+        var refershCallback;
+
+        function reLoadData() {
+            loading()
+            _zoom = 0; //初始缩放系数
+            AB_MIAN = 'A';
+            // //如果有重新加载的数据回调函数
+            // if (typeof refershCallback == 'function')
+            //     refershCallback();
+            // //  Initialize();
+            // localhostReload();
+        }
+
+        function showLegend() {
+            var legendShape = myCanvas.getShape("图例");
+            if (legendShape == null) return;
+            if (legendShape.visible == true)
+                legendShape.visible = false;
+            else
+                legendShape.visible = true;
+            myCanvas.draw();
+            return;
+        }
+
+        //初始图例  
+        function initLegend(legendData, canvas, x, y, width, height) {
+            var legend = WebGraph.Controls.Legend.createNew();
+            legend.allowDrog = true;
+            legend.visible = false;
+            var h = legend.getHeight(legendData[0].items.length, 15, 12, 5);
+            legend.init(canvas, legendData, x + width - 170, y + 50, 150, h);
+            return legend;
+        }
+        //获取图例颜色值
+        function getColor(legendData, id) {
+            var idx = 0;
+            var c = "Gold";
+            if (legendData) {
+                for (var i = 0; i < legendData[idx].items.length; i++) {
+                    if (legendData[idx].items[i].id == id) {
+                        c = legendData[idx].items[i].symbol;
+                        break;
+                    }
+                }
+            }
+            return c;
+        }
+
+        /*
+        =====初始右键菜单========
+        =====管孔菜单右键菜单=====
+        */
+        function initGuanKongMenu(webCanvas) {
+            var menu = new WebGraph.Controls.ContextMenu("contextMenu1");
+            menu.clearMenu();
+            menu.addItem(
+                "增加子孔",
+                "im9/1.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.addZiKong(obj.selectedShape.id, obj.selectedShape.guanduan_id);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "移动孔位",
+                "im9/1.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.yidongKong(obj.selectedShape.id, obj.selectedShape.data.bianhao, obj.selectedShape.guanduan_id);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "删除管孔",
+                "img/shanchu.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.delGuanKong(obj.selectedShape.id, obj.selectedShape.guanduan_id, obj.selectedShape.groups, obj);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "管孔拷贝",
+                "img/kaobei.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.copyGkinfo(obj);
+                    }
+                }(webCanvas)
+            );
+            /*menu.addItem(
+                "修改颜色",
+                "img/2.png",
+                function(obj) {
+                    return function() {
+                        alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+                    }
+                }(webCanvas)
+            );*/
+            menu.addItem(
+                "增加电缆",
+                "img/3.png",
+                function(obj) {
+                    return function() {
+                        //guanKongBiz.addCable();
+                        if (obj.selectedShape.data.state == "预留" || obj.selectedShape.data.state == 3) {
+                            alert("预留状态不能穿缆!");
+                            return;
+                        }
+                        guanKongBiz.addCable_C(obj.selectedShape.webCanvas.data.guanduan, obj.selectedShape.data);
+                    }
+                }(webCanvas)
+            );
+
+            menu.addItem(
+                "增加光缆",
+                "img/3.png",
+                function(obj) {
+                    return function() {
+                        if (obj.selectedShape.data.state == "预留" || obj.selectedShape.data.state == 3) {
+                            alert("预留状态不能穿缆!");
+                            return;
+                        }
+                        guanKongBiz.addCable_F(obj.selectedShape.webCanvas.data.guanduan, obj.selectedShape.data);
+                    }
+                }(webCanvas)
+            );
+
+            /*menu.addItem(
+                "增加预占",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+                    }
+                }(webCanvas)
+            );*/
+
+            menu.addItem(
+                "管孔预留",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.reserveKong(obj, "3", "是否预留管孔", "管孔");
+                    }
+                }(webCanvas)
+            );
+
+
+            menu.addItem(
+                "取消管孔预留",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.reserveKong(obj, "0", "是否取消管孔预留", "管孔");
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "批量修改",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.batchHandle(obj);
+                    }
+                }(webCanvas)
+            );
+
+
+            menu.addMenuTo(webCanvas.canvas);
+            return menu;
+        }
+        /*
+        =====子管右键菜单=====
+        */
+        function initZiKongMenu(webCanvas) {
+            var menu = new WebGraph.Controls.ContextMenu("contextMenu2");
+            menu.clearMenu();
+            // menu.addItem(
+            //     "子管右键菜单",
+            //     "img/003.gif",
+            //     function(obj) {
+            //         return function() {
+            //             alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+            //         }
+            //     }(webCanvas)
+            // );
+            menu.addItem(
+                "删除子孔",
+                "images/go-up.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.delGuanKong(obj.selectedShape.id, obj.selectedShape.parent.guanduan_id, obj.selectedShape.groups, obj, obj.selectedShape.parent.data.type, obj.selectedShape.parent.data.id);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "移动孔位",
+                "im9/1.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.yidongKong(obj.selectedShape.webCanvas.selectedShape.parent.id, obj.selectedShape.webCanvas.selectedShape.parent.BottomText, obj.selectedShape.webCanvas.selectedShape.parent.guanduan_id);
+                        //guanKongBiz.yidongKong(obj.selectedShape.id, obj.selectedShape.data.bianhao, obj.selectedShape.guanduan_id);
+                    }
+                }(webCanvas)
+            );
+            /*menu.addItem(
+                "修改颜色",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+                    }
+                }(webCanvas)
+            );*/
+            menu.addItem(
+                "增加光缆",
+                "img/mini_add.png",
+                function(obj) {
+                    return function() {
+                        if (obj.selectedShape.data.state == "预留" || obj.selectedShape.data.state == 3) {
+                            alert("预留状态不能穿缆!");
+                            return;
+                        }
+                        guanKongBiz.addCable_F(obj.selectedShape.webCanvas.data.guanduan, obj.selectedShape.data);
+                    }
+                }(webCanvas)
+            );
+
+            menu.addItem(
+                "增加电缆",
+                "img/mini_add.png",
+                function(obj) {
+                    return function() {
+                        if (obj.selectedShape.data.state == "预留" || obj.selectedShape.data.state == 3) {
+                            alert("预留状态不能穿缆!");
+                            return;
+                        }
+                        guanKongBiz.addCable_C(obj.selectedShape.webCanvas.data.guanduan, obj.selectedShape.data);
+                    }
+                }(webCanvas)
+            );
+
+
+            /*  menu.addItem(
+                  "增加预占",
+                  "img/003.gif",
+                  function(obj) {
+                      return function() {
+                          alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+                      }
+                  }(webCanvas)
+              );*/
+            menu.addItem(
+                "子管预留",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.reserveKong(obj, "3", "是否预留选中管孔", "子管");
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "取消子管预留",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.reserveKong(obj, "0", "是否取消预留选中管孔", "子管");
+                    }
+                }(webCanvas)
+            );
+            // menu.addItem(
+            //     "批量修改",
+            //     "img/003.gif",
+            //     function(obj) {
+            //         return function() {
+            //             alert('右键[删除]事件 ID：' + obj.selectedShape.id);
+            //         }
+            //     }(webCanvas)
+            // );
+            menu.addMenuTo(webCanvas.canvas);
+            return menu;
+        }
+        /*
+        =====缆节点右键菜单=====
+        */
+        function initLanMenu(webCanvas) {
+            var menu = new WebGraph.Controls.ContextMenu("contextMenu3");
+            menu.clearMenu();
+            menu.addItem(
+                "修改缆",
+                "img/jiahang.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.modifyLan(obj);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "移除缆",
+                "img/shanhang.png",
+                function(obj) {
+                    return function() {
+                        if (confirm("是否移除选中的缆？"))
+                            guanKongBiz.removeLan(obj.selectedShape.id);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "移动到虚拟管孔",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        // alert('右键[移动到虚拟管孔]事件 ID：' + obj.selectedShape.id);
+                        if (confirm("是否移动到虚拟管孔"))
+                            guanKongBiz.moveToVirtualHole(obj);
+                    }
+                }(webCanvas)
+            );
+
+            menu.addItem(
+                "移动到管孔",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.moveToHole(obj);
+                    }
+                }(webCanvas)
+            );
+
+            menu.addItem(
+                "缆路由",
+                "img/003.gif",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.openLanLuYou(obj.selectedShape.data);
+                        //guanKongBiz.moveToHole(obj);
+                    }
+                }(webCanvas)
+            );
+            menu.addMenuTo(webCanvas.canvas);
+            return menu;
+        }
+        /*
+        =====管段右键菜单=====
+        */
+        function initGuanDuanMenu(webCanvas) {
+            var menu = new WebGraph.Controls.ContextMenu("contextMenu4");
+            menu.clearMenu();
+            menu.addItem(
+                "增加管孔",
+                "img/1.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.addGuankong(webCanvas.data.id, obj.data);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "增加光缆",
+                "img/mini_add.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.addCable_F(webCanvas.data.guanduan, webCanvas.data.xnholes);
+                    }
+                }(webCanvas)
+            );
+
+            menu.addItem(
+                "增加电缆",
+                "img/mini_add.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.addCable_C(webCanvas.data.guanduan, webCanvas.data.xnholes);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "移除所有电缆",
+                "img/2.png",
+                function(obj) {
+                    return function() {
+                        console.info(webCanvas.data.id);
+                        if (confirm("是否清空全部的电缆？")) {
+                            $.ajax({
+                                type: "POST",
+                                url: getBasePath() + "/landuanluyou/clearDianLan.action",
+                                data: {
+                                    sectionId: webCanvas.data.id
+                                },
+                                dataType: "json",
+                                success: function(response) {
+                                    alert("删除成功！");
+                                    localhostReload();
+                                }
+                            });
+                        }
+                    }
+                }(webCanvas)
+            );
+            /* menu.addItem(
+                 "虚拟管孔",
+                 "img/2.png",
+                 function(obj) {
+                     return function() {
+                         alert('右键[移动到虚拟管孔]事件 ID：');
+                     }
+                 }(webCanvas)
+             );*/
+
+            /*  menu.addItem(
+                 "移动到管孔",
+                 "img/3.png",
+                 function(obj) {
+                     return function() {
+                         alert('右键[移动到管孔]事件 ID：');
+                     }
+                 }(webCanvas)
+             );*/
+
+            menu.addItem(
+                "截面拷贝",
+                "img/4.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.copyJieMian(webCanvas.data.id);
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "左右翻转",
+                "img/4.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.fanzhuan(webCanvas.data.id, '0');
+                    }
+                }(webCanvas)
+            );
+            menu.addItem(
+                "上下翻转",
+                "img/4.png",
+                function(obj) {
+                    return function() {
+                        guanKongBiz.fanzhuan(webCanvas.data.id, '1');
+                    }
+                }(webCanvas)
+            );
+            menu.addMenuTo(webCanvas.canvas);
+            return menu;
+        }
+
+        function addHole() {
+            guanKongBiz.addGuankong(myCanvas.data.id);
+        }
+
+        //切换显示AB正反面
+        function showAB(ab) {
+            AB_MIAN = ab;
+            initDanJieMian();
+
+        }
+
+        function showBianHao(shapeType) {
+            if (shapeType == '管孔') {
+
+                if (isShowHoleNO == true) isShowHoleNO = false;
+                else
+                    isShowHoleNO = true;
+                initDanJieMian();
+                return;
+            }
+
+
+            for (var i = 0; i < myCanvas.shapes.length; i++) {
+                if (shapeType == '子管') {
+                    if (myCanvas.shapes[i].type == shapeType) {
+                        if (myCanvas.shapes[i].Text == null || myCanvas.shapes[i].Text == "") {
+                            myCanvas.shapes[i].Text = myCanvas.shapes[i].temp;
+                            isShowHoleNO = true;
+                        } else {
+                            myCanvas.shapes[i].Text = "";
+                            isShowHoleNO = false;
+                        }
+                    }
+                } else {
+                    if (myCanvas.shapes[i].type == shapeType) {
+                        if (myCanvas.shapes[i].BottomText == null || myCanvas.shapes[i].BottomText == "")
+                            myCanvas.shapes[i].BottomText = myCanvas.shapes[i].temp;
+                        else
+                            myCanvas.shapes[i].BottomText = "";
+                    }
+                }
+            }
+            myCanvas.draw();
+        }
+
+        function exportImage() {
+
+            printCanvas = jieMianExport();
+            if (printCanvas == null) return;
+            printCanvas.saveImage();
+        }
+
+
+        function rectSelecttemp() {
+            if (myCanvas == null) return;
+            if (myCanvas.allowRectSelect) {
+                myCanvas.allowRectSelect = false;
+            } else {
+                myCanvas.allowRectSelect = true;
+            }
+        }
+    </script>
+</head>
+
+<body oncontextmenu="return false">
+    <div style="width:100%;height:100%">
+    <div id="toolBar" style="height:40px;left:1px; top:0px;width:200px">
+        <table style="font-family:宋体;font-size:12px;width:100%;border:0px;margin-top: 5px">
+            <tr>
+                <!-- <td width="16px"><input type="image" class="tool_button" id="manyou" title="漫游" src="images/toolbar/move.png" onClick="setMoveAll()" /></td> -->
+                <td width="16px"><input type="image" class="tool_button" id="zoomin" title="放大" src=" images/toolbar/zoomIn.png" onClick="doZoom(150)" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="zoomout" title="缩小" src="images/toolbar/zoomOut.png" onClick="doZoom(-150)" /></td>
+                <!-- <td width="16px"><input type="image" class="tool_button" id="recsel" title="框选" src="images/toolbar/rectSelect_16.png" onClick="rectSelecttemp()" /></td> -->
+                <td width="16px"><input type="image" class="tool_button" id="refersh" title="刷新" src="images/toolbar/refresh.png" onClick="reLoadData()" /></td>
+                <!-- <td width="16px"><input type="image" class="tool_button" id="saveas" title="另存为图片" src="images/toolbar/save_16.png" onClick="saveAs()" /></td> -->
+                <!-- <td width="16px"><input type="image" class="tool_button"  id="saveas" title="打印预览" src="img/toolbar/preview.png"  onClick="doPreview()"/></td> -->
+                <!-- <td width="16px"><input type="image" class="tool_button" id="saveas" title="打印" src="images/toolbar/print16.png" onClick="danJieMianPreview()" /></td> -->
+                <!-- <td width="16px"><input type="image" class="tool_button" id="saveas" title="导出图片" src="images/toolbar/daochu.png" onClick="exportImage()" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="a_mian" title="显示正面" src="images/toolbar/a_mian.png" onClick="showAB('A')" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="b_mian" title="显示反面" src="images/toolbar/b_mian.png" onClick="showAB('B')" /></td>-->
+                <td width="16px"><input type="image" class="tool_button" id="legend" title="图例" src="images/toolbar/legend.png" onClick="showLegend()" /></td> 
+                <!--<td width="16px"><input type="image" class="tool_button" id="addHole" title="增加管孔" src="img/toolbar/guankong.png" onClick="addHole()" /></td>-->
+                <!-- <td width="50px"></td>
+                <td width="16px"><input type="image" class="tool_button" id="gkBianhao" title="显示管孔编号" src="images/toolbar/guankong1.png" onClick="showBianHao('管孔')" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="zkBianhao" title="显示子孔编号" src="images/toolbar/ziguan.png" onClick="showBianHao('子管')" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="dlBianhao" title="显示电缆编号" src="images/toolbar/dianlan.png" onClick="showBianHao('电缆')" /></td>
+                <td width="16px"><input type="image" class="tool_button" id="glBianhao" title="显示光缆编号" src="images/toolbar/guanglan.png" onClick="showBianHao('光缆')" /></td> -->
+                <!-- <td><input type="checkbox" class="tool_button_checkbox" id="gkBianhao" title="管孔号" onClick="showBianHao('管孔')" />管孔号</td>
+                <td><input type="checkbox" class="tool_button_checkbox" id="zkBianhao" title="子孔号" onClick="showBianHao('子管')" />子孔号</td>
+                <td><input type="checkbox" class="tool_button_checkbox" id="dlBianhao" title="电缆号" onClick="showBianHao('电缆')" />电缆号</td>
+                <td><input type="checkbox" class="tool_button_checkbox" id="glBianhao" title="光缆号" onClick="showBianHao('光缆')" />光缆号</td> -->
+
+            </tr>
+        </table>
+    </div>
+    <div id="danjiemian_canvas" style="height:-webkit-calc(100% - 30px); height:-moz-calc(100% - 30px); height:calc(100% - 30px); width:100%;overflow:auto;"></div>
+    <!-- <div id="print_canvas" style=" height:0px;width:100%;overflow:none;"></div>
+    <div id="contextMenu1" style=" position: absolute;z-index: 10001; display:none;"> </div>
+    <div id="contextMenu2" style=" position: absolute;z-index: 10002; display:none;"> </div>
+    <div id="contextMenu3" style=" position: absolute;z-index: 10003; display:none;"> </div>
+    <div id="contextMenu4" style=" position: absolute;z-index: 10004; display:none;"> </div> -->
+</div>
+</body>
+    <script>
+            Initialize();
+    </script>
+
+</html>

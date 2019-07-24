@@ -1,0 +1,46 @@
+	  html, body, #ui-map-page, #ui-map-content, #ui-map {
+	    width: 100%;
+	    height: 100%;
+	    margin: 0px;
+	    padding: 0px;
+	  }
+		#ui-map_zoom_slider{
+		margin-top: 50px;
+	}
+	
+	  /* zoom slider */
+	 /* .esriSimpleSlider div {
+	    width: 1.125em;
+	    height: 1.125em;
+	    font-size: 1.875em;
+	    line-height: 0.9375em;
+	  }
+	
+	  .esriSimpleSliderVertical.esriSimpleSliderBR {
+	    right: 0.3125em;
+	    bottom: 2.875em;
+	  }
+	
+	  @media screen and (min-width: 768px) {
+	    .esriSimpleSliderVertical.esriSimpleSliderBR {
+	      bottom: 2.875em;
+	    }
+	  }
+	
+	  .info-window-mobile-button {
+	    display: none;
+	    font-size: inherit;
+	    padding: 0.7em 0.7em;
+	    border-width: 0.125em;
+	  }
+	  @media screen and (max-width: 768px) {
+	    .esriPopup .titleButton.maximize {
+	      display: none;
+	    }
+	    .esriPopup .titleButton.close {
+	      display: none;
+	    }
+	    .info-window-mobile-button {
+	      display: block;
+	    }
+	  } */
