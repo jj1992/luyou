@@ -14,7 +14,7 @@
     "jquery": "^3.4.1",
     "js-base64": "^2.5.0",
     "js-md5": "^0.7.3",
-    "jsdom": "^13.0.0",
+    "jsdom": "^16.5.0",
     "location": "0.0.1",
     "muse-ui": "^3.0.1",
     "muse-ui-loading": "^0.2.0",
